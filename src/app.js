@@ -1,44 +1,77 @@
-const os=require('os');
-const fs=require('fs');
+const path=require("path");
+const events=require('events');
+const emitter=new events();
 
-//console.log( os.cpus().length + " threads" );    
-//console.log( os.cpus()[0].model + ", Clock Speed: "+ os.cpus()[0].speed + "Ghz");
-//console.log( os.totalmem()/1073741824 + "GB Total Ram");
-//console.log( (os.freemem()/1073741824).toFixed(2) + "GB Total Ram");
-//console.log( os.networkInterfaces() );
-//console.log( os.platform() );
-//console.log( os.type() );
-//console.log( os.uptime() );
-//console.log( os.userInfo() );
+module.exports=emitter;
 
-//const data=fs.readFileSync('src/data.txt');                     // sync
-//console.log( data.toString() );
+// console.log( path.normalize('./src') );
+// console.log( path.normalize('src//webp') );
 
-// fs.readFile('src/data.txt',{encoding:'utf-8'},(err,data)=>{         // async
-//     if(err){ console.warn(err)}
-//     else{ console.log(data)}
+// console.log(path.basename("/src/app/") );
+// console.log(path.basename("/src/app/index.js") );
+// console.log(path.basename("/src/app/index.js",".js") );
+
+//console.log( path.dirname("src/app/") );
+//console.log( path.extname("src/app.js") );
+
+
+// console.log( path.resolve('src') );
+// console.log( path.resolve(__filename) );
+// console.log( path.resolve(__dirname) );
+// console.log( path.resolve("src","app") );
+
+//console.log( path.join("./src","app") );
+// const fs=require('fs');
+    
+// fs.ReadStream(path.resolve('src/data.txt')).on("open",()=>{
+//     console.log("file open");
 // });
 
-// fs.stat('src/data.txt',(err,data)=>{                            // async
-//     if(err){ console.warn(err)}
-//     else{ 
-//         console.log(data.isFile());
-//         console.log(data.isDirectory());
-//         console.log(data.size);
+
+
+// registering event
+// emitter.on("appStart",(time)=>{
+//     console.log(`App Starts at ${time}`);       
+// });
+// emitter.on("appStart",(time)=>{
+//     console.log(`App Starts again at ${time}`);       
+// });
+
+
+// event trigger
+//emitter.emit('appStart',2);
+//emitter.emit('appStart',4);
+
+
+// emitter.on("appStart",(x)=>{
+//     console.log(`App Starts at ${x.time}`);   
+//     //x.done=false;    
+//  });
+//  emitter.on("appStart",(x)=>{   
+//     if( x.done ){
+//         console.log(`App Starts again at ${x.time}`); 
 //     }
+//  });
+
+// emitter.emit('appStart',{time:3,done:false});
+
+
+
+// emitter.once("appStart",(x)=>{    
+//     console.log(`App Starts at ${x}`);  
+// });
+// emitter.once("appStart",(x)=>{    
+//     console.log(`App Starts again at ${x}`);  
 // });
 
-//fs.writeFile('src/data.txt',"hello JS",'utf-8',(err)=>{console.warn(err)});
+
+// emitter.emit('appStart',3);
+// emitter.emit('appStart',4);
 
 
-//fs.appendFileSync('src/data.txt',"\nhello JS",'utf-8',(err)=>{console.warn(err)});
+const x=require(path.resolve('./src/log'));
+const y=require(path.resolve('./src/reg'));
 
-fs.unlink("src/data.txt",(err)=>{
-    if(err){
-        console.warn(err);
-    }
-    else{
-        console.log("File deleted");
-    }
-});
 
+emitter.emit("login");
+emitter.emit("register");
