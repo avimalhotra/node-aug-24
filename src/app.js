@@ -1,77 +1,52 @@
-const path=require("path");
-const events=require('events');
-const emitter=new events();
-
-module.exports=emitter;
-
-// console.log( path.normalize('./src') );
-// console.log( path.normalize('src//webp') );
-
-// console.log(path.basename("/src/app/") );
-// console.log(path.basename("/src/app/index.js") );
-// console.log(path.basename("/src/app/index.js",".js") );
-
-//console.log( path.dirname("src/app/") );
-//console.log( path.extname("src/app.js") );
+const http=require('http');
+const fs=require('fs');
+const path=require('path');
+const port=8080;
+const ip='127.0.0.1';
 
 
-// console.log( path.resolve('src') );
-// console.log( path.resolve(__filename) );
-// console.log( path.resolve(__dirname) );
-// console.log( path.resolve("src","app") );
+const server=http.createServer((req,res)=>{
+    //res.write(req.url);
+    // res.write(req.method);
+    //res.statusCode=200;
+    //res.setHeader('Content-Type','text/html');
+    //res.writeHead(200,{'Content-Type':'text/html'});
+    //res.write(req.headers.host);
+    //res.write(`Response from server`);
 
-//console.log( path.join("./src","app") );
-// const fs=require('fs');
-    
-// fs.ReadStream(path.resolve('src/data.txt')).on("open",()=>{
-//     console.log("file open");
-// });
+    //res.end("Response from server");
+    //res.end();
 
+    if(req.url=="/" && req.method=="GET"){
+        fs.readFile(path.resolve('src/index.html'),{encoding:'utf-8'},(err,data)=>{
+            if(err){
+                res.end(err)
+            }
+            else{
+                res.end(data);
+            }
+        });
+    }
+    else{
+        res.end(`404, Page not Found`)
+    }
+});
 
-
-// registering event
-// emitter.on("appStart",(time)=>{
-//     console.log(`App Starts at ${time}`);       
-// });
-// emitter.on("appStart",(time)=>{
-//     console.log(`App Starts again at ${time}`);       
-// });
-
-
-// event trigger
-//emitter.emit('appStart',2);
-//emitter.emit('appStart',4);
-
-
-// emitter.on("appStart",(x)=>{
-//     console.log(`App Starts at ${x.time}`);   
-//     //x.done=false;    
-//  });
-//  emitter.on("appStart",(x)=>{   
-//     if( x.done ){
-//         console.log(`App Starts again at ${x.time}`); 
-//     }
-//  });
-
-// emitter.emit('appStart',{time:3,done:false});
+server.listen(port,ip,()=>{
+    console.log(`Server running at http://${ip}:${port}`);
+});
 
 
 
-// emitter.once("appStart",(x)=>{    
-//     console.log(`App Starts at ${x}`);  
-// });
-// emitter.once("appStart",(x)=>{    
-//     console.log(`App Starts again at ${x}`);  
-// });
+/*
+http.createServer((req,res)=>{
+    //res.write(`<h1>`);
+    //res.write(`Date: ${new Date().toLocaleString()}`);
+    //res.write(`</h1>`);
 
+    res.write(`Date: ${new Date().toLocaleString()}`);
+    res.end();
+}).listen(port,ip,()=>{
+    console.log(`App running at http://${ip}:${port}`);
+});*/
 
-// emitter.emit('appStart',3);
-// emitter.emit('appStart',4);
-
-
-const x=require(path.resolve('./src/log'));
-const y=require(path.resolve('./src/reg'));
-
-
-emitter.emit("login");
-emitter.emit("register");
