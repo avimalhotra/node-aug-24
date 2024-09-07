@@ -1,52 +1,32 @@
-const http=require('http');
-const fs=require('fs');
-const path=require('path');
-require('dotenv').config();
+const express=require('express');
+require("dotenv").config();
 const port=process.env.PORT;
-const ip=process.env.IP;
+const path=require("path");
+const app=express();
 
 
-const server=http.createServer((req,res)=>{
+app.use(express.static(path.resolve("src/public")));
 
-    if(req.url=="/" && req.method=="GET"){
-        fs.readFile(path.resolve('src/index.html'),{encoding:'utf-8'},(err,data)=>{
-            if(err){
-                res.end(err)
-            }
-            else{
-                res.end(data);
-            }
-        });
-    }
-    else if(req.url=="/login" && req.method=="GET"){
-        fs.readFile(path.resolve('src/login.html'),{encoding:'utf-8'},(err,data)=>{
-            if(err){
-                res.end(err)
-            }
-            else{
-                res.end(data);
-            }
-        });
-    }
-    else{
-        res.end(`404, Page not Found`)
-    }
+// app.use((req,res,next)=>{
+//     console.log("Use Login");
+//     next();
+// });
+
+
+
+app.get("/",(req,res)=>{
+    res.status(200).send("Hello World");
 });
-
-server.listen(port,ip,()=>{
-    console.log(`Server running at http://${ip}:${port}`);
+app.get("/api",(req,res)=>{
+    res.status(200).json([{name:"lorem",city:"delhi"},{name:"ipsum",city:"chennai"}]);
 });
 
 
-/*
-http.createServer((req,res)=>{
-    //res.write(`<h1>`);
-    //res.write(`Date: ${new Date().toLocaleString()}`);
-    //res.write(`</h1>`);
+/* wild card handler */
+app.get("/**",(req,res)=>{
+    res.status(404).send("Page not found");
+});
 
-    res.write(`Date: ${new Date().toLocaleString()}`);
-    res.end();
-}).listen(port,ip,()=>{
-    console.log(`App running at http://${ip}:${port}`);
-});*/
-
+app.listen(port,()=>{
+    console.log(`Server running at http://127.0.0.1:${port}`);
+});
