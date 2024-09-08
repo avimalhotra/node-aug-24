@@ -4,12 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello Express</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Hello Express</h1>
-        <img src="img/jack.webp" alt="jack" width="70" height="70">
+        <header class="p-3">
+            <h1>Hello Express</h1>
+        </header>
+        
+        <nav class="p-3 bg-secondary-subtle">
+            <ul class="nav">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/cars">Cars</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/cars/toyota">Toyota</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/cars/toyota/fortuner">Fortuner</a>
+                </li>
+              </ul>
+        </nav>
+        
+        <main class="p-3">
+            <!-- <img src="img/jack.webp" alt="jack" width="70" height="70"> -->
+        <h2 class="mt-3">Get</h2>
+        <form action="/search" method="get">
+            <div class="row">
+                <div class="col-auto">
+                    <label for="search" class="form-label">Car</label> 
+                </div>
+                <div class="col-auto">
+                    <input type="search" name="car" pattern="[a-z0-9]{3,}[a-z0-9 ]{0,}" id="search" required class="form-control">
+                </div>
+                <div class="col-auto">
+                    <label for="age" class="form-label">Car Age</label> 
+                </div>
+                <div class="col-auto">
+                    <input type="number" name="age" min="1" id="age" required class="form-control">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+          </form>
+          <h2 class="mt-3">Post</h2>
+            <form action="/login" method="post">
+                <div class="row">   
+                    <div class="col-auto">
+                        <label for="email" class="form-label">Login</label> 
+                    </div>
+                    <div class="col-auto">
+                        <input type="email" name="email" id="email" required class="form-control">
+                    </div>
+                    <div class="col-auto">
+                        <label for="pass" class="form-label">Password</label> 
+                    </div>
+                    <div class="col-auto">
+                        <input type="password" name="password" id="pass" required class="form-control">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+          </main>
+          <footer class="p-3 bg-dark text-light">
+            <p class="m-0">&copy; 2024</p>
+          </footer>
     </div>
+<script src="js/bootstrap.bundle.min.js"></script>    
 </body>
 </html>
