@@ -72,6 +72,20 @@
                     </div>
                 </div>
             </form>
+            <h2 class="my-3">Upload</h2>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <div class="row align-items-center">   
+                    <div class="col-auto">
+                        <label for="pic" class="form-label">Upload Picture</label> 
+                    </div>
+                    <div class="col-auto">
+                        <input type="file" name="pic" accept="image/*"  id="pic" required class="form-control">
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-primary" type="submit">Upload</button>
+                    </div>
+                </div>
+            </form>        
           </main>
           <footer class="p-3 bg-dark text-light">
             <p class="m-0">&copy; 2024</p>
