@@ -18,7 +18,6 @@ const cars=require("./routes/cars");
 //     cookie:{secure:false,maxAge:(1000 * 3)}
 // }));
 
-
 // const cookieParser=require('cookie-parser');
 // app.use(cookieParser("secret"));
 
@@ -63,7 +62,6 @@ app.use("/cars",cars);
 
 
 
-
 app.get("/",(req,res)=>{
     res.setHeader("Content-Type","text/html");
 
@@ -78,14 +76,40 @@ app.get("/",(req,res)=>{
     res.status(200).send("<h1>Hello World</h1>");
 });
 
-app.get("/api",(req,res)=>{
+
+const data=[
+    {"name": "swift", "type": "hatchback", "price":830000},
+    {"name": "dzire", "type": "sedan", "price":980000},
+    {"name": "ciaz", "type": "sedan", "price":1100000},
+    {"name": "baleno", "type": "hatchback", "price":880000},
+    {"name": "fronx", "type": "hatchback", "price":1150000},
+    {"name": "brezza", "type": "suv", "price":990000},
+    {"name": "grand vitara", "type": "suv", "price":1990000},
+    {"name": "alto", "type": "hatchback", "price":400000},
+    {"name": "wagon r", "type": "hatchback", "price":500000},
+    {"name": "jimny", "type": "suv", "price":1400000}
+];
+
+
+/* app.get("/api",(req,res)=>{
     res.status(200).json([{name:"lorem",city:"delhi"},{name:"ipsum",city:"chennai"}]);
+}); */
+
+app.get("/api",(req,res)=>{
+    res.header("Access-Control-Allow-Origin","*");          // public api
+    return res.status(200).json(data);
 });
+app.get("/api/:car",(req,res)=>{
+    res.header("Access-Control-Allow-Origin","*");          // public api
+    const car=data.filter(i=>i.name==req.params.car);
+    if(car.length==0){res.status(200).json({error:"no car found"})}
+    else{res.status(200).json(car[0])}
+});
+
 
 app.get("/search",(req,res)=>{
     res.setHeader("Content-Type","text/html");
     res.status(200).send(req.query);
-    // res.status(200).json({'query':req.query});
 });
 
 
